@@ -1,0 +1,58 @@
+<html>
+    <head></head>
+    <body>
+        <script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
+            <script>
+            $(document).ready(function() {
+                
+                var path = "http://localhost:333/api";
+
+                //////////
+                // POST //
+                //////////
+                $.ajax({
+                    method: "POST",
+                    url: path + "/contato",
+                    data: {
+                        // Dados a serem cadastrados
+                    }
+                }).done(function(msg){
+                    console.log("Contato cadastrado com sucesso");
+                }).fail(function(msg){
+                    console.log("Ocorreu um erro");
+                })
+
+                ////////////////////////
+                // GET - Listar todos // 
+                ////////////////////////
+                $.getJSON(path + "contato?size=0&page=0", function(results) {
+                    $.each(results, function(index) {
+                        console.log(results[index].obj);
+                    });
+                });
+
+                /////////////////////////////////
+                // GET - Listar uma ocorrência // 
+                /////////////////////////////////
+                $.getJSON(path + `contato/id=${n}`, function(results) {
+                    $.each(results, function(index) {
+                        $('div').html(`
+                            Listar os detalhes do contato aqui  
+                        `);
+                    });
+                });
+
+                /////////
+                // PUT // 
+                /////////
+                $.ajax({
+                    url: path + `contato/id=${n}`,
+                    type: 'PUT',
+                    success: function(result) {
+                        console.log('Enviar os dados a serem alterados aqui');
+                    }
+                });
+           });
+        </script>
+    </body>
+</html>
